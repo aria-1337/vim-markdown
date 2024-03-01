@@ -1,14 +1,11 @@
 function! PreviewMarkdown()
-python3 << EOF
-import vim
+    let name = expand('%:t:r')
+    let extension = expand('%:e')
+    let file_name = name . '.' . extension
+    let command = "grip -b " . file_name
 
-def test():
-    markdown = vim.eval("getline(1, '$')")
-    print(markdown)
-
-EOF
-
-python3 test()
+    const term_buf = term_start(&shell)
+    call term_sendkeys(term_buf, command."\<CR>")
 
 endfunction
 
